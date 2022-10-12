@@ -8,3 +8,11 @@ const app = express();
 
 app.use(express.json({ extended: false }));
 app.use(cors());
+
+app.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`);
+});
+
+app.get('/', (req, res) => {
+  res.send('Connected! Yay!')
+})  
