@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { Fragment } from 'react';
 import Grid2 from '@mui/material/Unstable_Grid2';
