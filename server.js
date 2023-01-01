@@ -1,6 +1,7 @@
 const express = require('express');
+const papa = require('papaparse');
+const fs = require('fs');
 const cors = require('cors');
-const Papa = require('papaparse');
 
 const PORT = process.env.PORT || 3001;
 
@@ -14,8 +15,21 @@ app.listen(PORT, () => {
 });
 
 // Create endpoint here and use fs to read and parse CSV data, and then send that data to the frontend through the endpoint
-app.post('/data', (req, res) => {
-  res.send('Create parser function with fs here');
+app.get('/data', (req, res) => {
+  const csvFilePath = 'client/src/data/SaskNeighbourhoods.csv';
+  const file = fs.createReadStream(csvFilePath);
+  const csvData = [];
+
+  papa.parse(file, {
+    header: true,
+    step: (res) => {
+      csvData.push(res.data);
+    },
+    complete: (res, file) => {
+      console.log('Complete', csvData.length, 'records');
+      console.log('Records: ', csvData[0]);
+    }
+  })
 });
 
 app.get('/', (req, res) => {
