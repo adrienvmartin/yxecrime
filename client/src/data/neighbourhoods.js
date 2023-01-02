@@ -1,17 +1,10 @@
-import fs from 'fs';
-import Papa from 'papaparse';
-import * as sk from 'SaskNeighbourhoods';
+import axios from 'axios';
+import papa from "papaparse";
 
-const getNeighbourhoods = () => {
-  let neighbourhoods = [];
+const  getNeighbourhoods = () => {
 
-  Papa.parse(sk), {
-    header: true,
-    skipEmptyLines: true,
-    complete: (res) => {
-      console.log(res);
-    }
-  };
+  axios.get('http://localhost:3001/data').then(r => console.log(r.data));
+
 }
 
 export default getNeighbourhoods;
