@@ -25,16 +25,15 @@ const processData = (data) => {
     newlist.push(e);
   })
 
-  // console.log('processData results: ', csvData[0].length);
-  // console.log('newlist: ', newlist);
+  console.log('processing');
   return csvData;
 }
 
-const readCSV = async () => {
+const readCSV = () => {
   const csvFilePath = 'client/src/data/SaskNeighbourhoods.csv';
   const file = fs.createReadStream(csvFilePath);
 
-  await papa.parse(file, {
+   papa.parse(file, {
     header: true,
      /* step: (res) => {
     }, */
@@ -42,13 +41,11 @@ const readCSV = async () => {
       processData(res.data);
     }
   });
-  return newlist;
 }
 
 // Create endpoint here and use fs to read and parse CSV data, and then send that data to the frontend through the endpoint
-app.get('/data', (req, res) => {
-  readCSV();
-  // console.log('newlist at api[0] ', newlist[1])
+app.get('/data', async (req, res) => {
+  await readCSV();
   res.send(newlist);
 });
 
