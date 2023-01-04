@@ -25,7 +25,6 @@ const processData = (data) => {
     newlist.push(e);
   })
 
-  console.log('processing');
   return csvData;
 }
 
@@ -44,6 +43,7 @@ const readCSV = () => {
 }
 
 // Create endpoint here and use fs to read and parse CSV data, and then send that data to the frontend through the endpoint
+// Response resends data every time it is queried and the array grows with every request, find a way to only have it show up once
 app.get('/data', async (req, res) => {
   await readCSV();
   res.send(newlist);
